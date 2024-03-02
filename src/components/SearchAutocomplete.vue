@@ -68,6 +68,7 @@
 
 <script>
 import airportsData from "../data/airports.js";
+import { debounce } from "./utils/debounce.js";
 import DisplayList from "./DisplayList.vue";
 import LoadSpinner from "./LoadSpinner.vue";
 import CancelButton from "./CancelButton.vue";
@@ -144,7 +145,6 @@ export default {
     reset() {
       this.search = "";
       this.isOpen = false;
-      this.$emit("update-input", "");
     },
     setData(payload) {
       this.items = payload;
@@ -158,11 +158,10 @@ export default {
       if (this.isAsync) {
         this.isLoading = true;
         this.isOpen = true;
-        this.debounceRequest()(this.updateItems.bind(this), 800);
+        debounce()(this.updateItems.bind(this), 800);
       } else {
         this.updateItems();
       }
-      this.$emit("update-input", this.results);
     },
     handleClickOutside(event) {
       if (!this.$el.contains(event.target)) {
@@ -193,7 +192,7 @@ export default {
           (item) => item[this.label] !== result[this.label]
         );
       }
-      this.$emit("result-selected", selected);
+      this.$emit("result-selected", this.selected);
     },
     handleMouseover(index) {
       this.arrowCounter = index;
@@ -219,15 +218,6 @@ export default {
           }
         }
       });
-    },
-    debounceRequest() {
-      let timeout = null;
-      return function (fnc, delayms) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          fnc();
-        }, delayms || 500);
-      };
     },
   },
 };
