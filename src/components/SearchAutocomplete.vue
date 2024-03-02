@@ -205,9 +205,9 @@ export default {
         if (!listContainer) return;
 
         if (this.arrowCounter === 0) {
-          listContainer.scrollTop = 0; // Scroll to the top
+          listContainer.scrollTop = 0;
         } else if (this.arrowCounter === this.results.length - 1) {
-          listContainer.scrollTop = listContainer.scrollHeight; // Scroll to the bottom
+          listContainer.scrollTop = listContainer.scrollHeight;
         } else {
           const highlightedItem = listContainer.querySelector(
             `li:nth-child(${this.arrowCounter + 1})`
