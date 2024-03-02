@@ -46,20 +46,13 @@
           @keydown.enter.prevent="toggleCheckbox(result)"
         >
           <div class="flex-1">
-            <DisplayList>
-              <template v-if="captionAttribute.length > 0" #caption
-                >{{ captionAttribute }}:
-                {{ result[captionAttribute] }}</template
-              >
-              <template v-if="logoAttribute.length > 0" #id>{{
-                result[logoAttribute]
-              }}</template>
-              <template #default>{{ result[displayAttribute] }}</template>
-            </DisplayList>
+            <slot :element="result">
+              {{ result[identifierAttribute] }}
+            </slot>
           </div>
           <input
             type="checkbox"
-            class="accent-cyan-300 focus:accent-cyan-500"
+            class="accent-cyan-300 focus:accent-cyan-500 transform scale-150"
             :value="result"
             v-model="selected"
           />
@@ -72,7 +65,6 @@
 
 <script>
 import { debounce } from "./utils/debounce.js";
-import DisplayList from "./DisplayList.vue";
 import LoadSpinner from "./LoadSpinner.vue";
 import CancelButton from "./CancelButton.vue";
 
@@ -99,17 +91,7 @@ export default {
       required: false,
       default: "",
     },
-    displayAttribute: {
-      type: String,
-      required: true,
-      default: "",
-    },
-    captionAttribute: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    logoAttribute: {
+    identifierAttribute: {
       type: String,
       required: false,
       default: "",
@@ -141,7 +123,6 @@ export default {
     };
   },
   components: {
-    DisplayList,
     LoadSpinner,
     CancelButton,
   },
@@ -155,7 +136,7 @@ export default {
     filteredResults() {
       return this.items.filter(
         (item) =>
-          item[this.displayAttribute]
+          item[this.identifierAttribute]
             .toLowerCase()
             .indexOf(this.search.toLowerCase()) > -1
       );
@@ -210,7 +191,7 @@ export default {
       } else {
         this.selected = this.selected.filter(
           (item) =>
-            item[this.displayAttribute] !== result[this.displayAttribute]
+            item[this.identifierAttribute] !== result[this.identifierAttribute]
         );
       }
       this.$emit("result-selected", this.selected);

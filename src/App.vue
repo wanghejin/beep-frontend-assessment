@@ -7,22 +7,32 @@
           :isAsync="true"
           :label="'Async Search'"
           :description="'With description and custom results display'"
-          :displayAttribute="'name'"
-          :captionAttribute="'airport_code'"
-          :logoAttribute="'id'"
+          :identifierAttribute="'name'"
           :searchOnFocus="false"
           class="mb-10"
-        />
-        <SearchAutocomplete
+        >
+          <template v-slot="slotProps">
+            <div class="flex-1 flex flex-col justify-end">
+              <div class="flex mb-2">
+                <div class="text-xs font-mono">{{ slotProps.element.id }}</div>
+                <div class="flex-1 ml-2">{{ slotProps.element.name }}</div>
+              </div>
+              <div class="text-sm text-gray-500">
+                Location: {{ slotProps.element.location }}
+              </div>
+            </div>
+          </template>
+        </SearchAutocomplete>
+        <!-- <SearchAutocomplete
           :items="data1"
           :isAsync="false"
           :label="'Sync Search'"
           :description="'With default display and search on focus'"
-          :displayAttribute="'name'"
+          :identifierAttribute="'name'"
           :searchOnFocus="true"
           class="mb-10"
         />
-        <SearchAutocomplete :isDisabled="true" :label="'Disabled Input'" />
+        <SearchAutocomplete :isDisabled="true" :label="'Disabled Input'" /> -->
       </div>
     </div>
   </div>

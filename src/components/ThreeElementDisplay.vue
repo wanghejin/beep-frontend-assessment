@@ -16,6 +16,6 @@
 
 <script>
 export default {
-  name: "DisplayList",
+  name: "ThreeElementDisplay",
 };
 </script>
