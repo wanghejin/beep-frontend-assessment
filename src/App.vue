@@ -12,27 +12,14 @@
           class="mb-10"
         >
           <template v-slot="slotProps">
-            <div class="flex-1 flex flex-col justify-end">
-              <div class="flex mb-2">
-                <div class="text-xs font-mono">{{ slotProps.element.id }}</div>
-                <div class="flex-1 ml-2">{{ slotProps.element.name }}</div>
-              </div>
-              <div class="text-sm text-gray-500">
-                Location: {{ slotProps.element.location }}
-              </div>
-            </div>
+            <DisplayTemplate1
+              :element="slotProps.element"
+              :mainAttribute="'name'"
+              :logoAttribute="'id'"
+              :captionAttribute="'location'"
+            />
           </template>
         </SearchAutocomplete>
-        <!-- <SearchAutocomplete
-          :items="data1"
-          :isAsync="false"
-          :label="'Sync Search'"
-          :description="'With default display and search on focus'"
-          :identifierAttribute="'name'"
-          :searchOnFocus="true"
-          class="mb-10"
-        />
-        <SearchAutocomplete :isDisabled="true" :label="'Disabled Input'" /> -->
       </div>
     </div>
   </div>
@@ -40,17 +27,18 @@
 
 <script>
 import SearchAutocomplete from "./components/SearchAutocomplete.vue";
+import DisplayTemplate1 from "./components/DisplayTemplate1.vue";
 import airportsData from "./data/airports.js";
 
 export default {
   name: "App",
   components: {
     SearchAutocomplete,
+    DisplayTemplate1,
   },
   data() {
     return {
       data1: airportsData,
-      data2: airportsData,
     };
   },
 };
