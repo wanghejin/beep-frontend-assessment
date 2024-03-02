@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="text-sm text-gray-500">
-      <slot name="description"></slot>
+      <slot name="caption"></slot>
     </div>
   </div>
 </template>
