@@ -5,8 +5,8 @@
         <input
           type="text"
           v-model="search"
-          class="outline-4 outline-blue-400 border-2 border-blue-300 hover:border-blue-400 focus:border-blue-600 w-96 pl-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 block p-2.5 dark:bg-gray-200 dark:border-gray-200 dark:placeholder-gray-200 dark:text-white"
-          :placeholder="placeholder"
+          class="outline-4 outline-blue-400 border-2 border-blue-300 enabled:hover:border-blue-400 focus:border-blue-600 w-96 pl-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-200 block p-2.5 dark:bg-gray-200 dark:border-gray-200 dark:placeholder-gray-200 dark:text-white disable:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400"
+          :placeholder="!isDisabled ? placeholder : null"
           @input="onChange"
           @focus="this.searchOnFocus ? onChange() : null"
           @keydown.down="onArrowDown"
@@ -18,6 +18,7 @@
 
         <LoadSpinner v-if="isLoading" class="absolute inset-y-3 right-11" />
         <CancelButton
+          v-if="!isDisabled"
           class="absolute top-0 right-3 flex items-center justify-center h-full"
           @click="reset()"
         />
@@ -67,7 +68,6 @@
 </template>
 
 <script>
-import airportsData from "../data/airports.js";
 import { debounce } from "./utils/debounce.js";
 import DisplayList from "./DisplayList.vue";
 import LoadSpinner from "./LoadSpinner.vue";
@@ -79,7 +79,7 @@ export default {
     items: {
       type: Array,
       required: false,
-      default: () => airportsData,
+      default: () => [],
     },
     placeholder: {
       type: String,

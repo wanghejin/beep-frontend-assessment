@@ -2,11 +2,20 @@
   <div id="app">
     <div class="flex justify-center items-center h-screen font-sans">
       <SearchAutocomplete
+        :items="data1"
         :isAsync="true"
+        :label="'name'"
+        :description="'airport_code'"
+        :searchOnFocus="false"
+      />
+      <SearchAutocomplete
+        :items="data1"
+        :isAsync="false"
         :label="'name'"
         :description="'airport_code'"
         :searchOnFocus="true"
       />
+      <SearchAutocomplete :isDisabled="true" />
     </div>
   </div>
 </template>
@@ -19,7 +28,12 @@ export default {
   name: "App",
   components: {
     SearchAutocomplete,
-    airportsData,
+  },
+  data() {
+    return {
+      data1: airportsData,
+      data2: airportsData,
+    };
   },
 };
 </script>
