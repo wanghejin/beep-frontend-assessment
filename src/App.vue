@@ -15,11 +15,33 @@
             <DisplayTemplate1
               :element="slotProps.element"
               :mainAttribute="'name'"
-              :logoAttribute="'id'"
+              :logoAttribute="'airport_code'"
               :captionAttribute="'location'"
             />
           </template>
         </SearchAutocomplete>
+
+        <SearchAutocomplete
+          :items="data2"
+          :isAsync="false"
+          :label="'Sync Search'"
+          :description="'With default display and search on focus'"
+          :identifierAttribute="'Model'"
+          :searchOnFocus="true"
+          class="mb-10"
+        >
+          <template v-slot="slotProps">
+            <DisplayTemplate2
+              :element="slotProps.element"
+              :mainAttribute="'Model'"
+            />
+          </template>
+        </SearchAutocomplete>
+
+        <SearchAutocomplete
+          :isDisabled="true"
+          :label="'Disabled Input'"
+        ></SearchAutocomplete>
       </div>
     </div>
   </div>
@@ -28,17 +50,21 @@
 <script>
 import SearchAutocomplete from "./components/SearchAutocomplete.vue";
 import DisplayTemplate1 from "./components/DisplayTemplate1.vue";
+import DisplayTemplate2 from "./components/DisplayTemplate2.vue";
 import airportsData from "./data/airports.js";
+import carsData from "./data/cars.js";
 
 export default {
   name: "App",
   components: {
     SearchAutocomplete,
     DisplayTemplate1,
+    DisplayTemplate2,
   },
   data() {
     return {
       data1: airportsData,
+      data2: carsData,
     };
   },
 };
