@@ -214,7 +214,7 @@ export default {
           );
           if (highlightedItem) {
             highlightedItem.scrollIntoView({
-              behavior: "smooth",
+              behavior: "auto",
               block: "nearest",
             });
           }

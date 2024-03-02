@@ -288,7 +288,12 @@ export default [
     location: "Brasilito",
   },
   { id: 54, airport_code: "LZO", name: "Luzhou Airport", location: "Luzhou" },
-  { id: 55, airport_code: "0", name: "Soledade Airport", location: "Soledade" },
+  {
+    id: 55,
+    airport_code: "SLD",
+    name: "Soledade Airport",
+    location: "Soledade",
+  },
   {
     id: 56,
     airport_code: "STN",
